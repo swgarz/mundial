@@ -15,43 +15,32 @@
     --silver:#9FB2BE; --bronze:#C8915A; --r:14px; --r-sm:9px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--foam);
-       -webkit-font-smoothing:antialiased;line-height:1.5}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--foam);-webkit-font-smoothing:antialiased;line-height:1.5}
   .wrap{max-width:860px;margin:0 auto;padding:0 16px 80px}
-
   header.top{background:var(--navy);color:#fff;padding:20px 16px 16px;border-bottom:5px solid var(--gold)}
   .top-in{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-  .badge{width:54px;height:54px;border-radius:14px;background:var(--aqua);
-       display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:inset 0 0 0 3px rgba(255,255,255,.25)}
+  .badge{width:54px;height:54px;border-radius:14px;background:var(--aqua);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:inset 0 0 0 3px rgba(255,255,255,.25)}
   .badge i{font-style:normal;font-size:28px}
   .brand-name{font-family:'Anton',sans-serif;letter-spacing:.5px;font-size:13px;text-transform:uppercase;color:var(--aqua);line-height:1}
   h1.title{font-family:'Anton',sans-serif;font-size:30px;letter-spacing:.5px;line-height:1;text-transform:uppercase;margin-top:2px}
   .sub{font-size:12.5px;color:#A9C2D4;margin-top:5px}
-
   nav.tabs{display:flex;gap:6px;max-width:860px;margin:14px auto 0;padding:0 16px;flex-wrap:wrap}
   nav.tabs.hidden{display:none}
-  .tab{flex:1;min-width:96px;border:none;background:rgba(255,255,255,.65);color:var(--navy);
-       font-family:inherit;font-weight:600;font-size:14px;padding:11px 8px;border-radius:11px 11px 0 0;
-       cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;border-bottom:3px solid transparent;transition:.15s}
+  .tab{flex:1;min-width:96px;border:none;background:rgba(255,255,255,.65);color:var(--navy);font-family:inherit;font-weight:600;font-size:14px;padding:11px 8px;border-radius:11px 11px 0 0;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;border-bottom:3px solid transparent;transition:.15s}
   .tab:hover{background:rgba(255,255,255,.9)}
   .tab.active{background:var(--white);border-bottom-color:var(--aqua);color:var(--aqua-deep)}
   .tab i{font-style:normal}
-
   .view{display:none;background:var(--white);border-radius:var(--r);padding:22px 20px;box-shadow:0 8px 24px rgba(11,42,74,.07)}
   .view.tabbed{border-radius:0 0 var(--r) var(--r)}
   .view.show{display:block;animation:fade .25s ease}
   @keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
-
-  .h-sec{font-family:'Anton',sans-serif;font-size:19px;letter-spacing:.4px;text-transform:uppercase;color:var(--navy);
-       margin:0 0 4px;display:flex;align-items:center;gap:9px}
+  .h-sec{font-family:'Anton',sans-serif;font-size:19px;letter-spacing:.4px;text-transform:uppercase;color:var(--navy);margin:0 0 4px;display:flex;align-items:center;gap:9px}
   .h-sec i{font-style:normal;color:var(--aqua)}
   .lead{color:var(--muted);font-size:13.5px;margin-bottom:18px}
-
   .stat-row{display:flex;gap:10px;margin-bottom:14px;flex-wrap:wrap}
   .stat{background:var(--foam);border-radius:var(--r-sm);padding:10px 14px;flex:1;min-width:120px}
   .stat .n{font-family:'Roboto Mono',monospace;font-weight:700;font-size:22px;color:var(--navy)}
   .stat .l{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
-
   table.board{width:100%;border-collapse:collapse}
   table.board th{font-size:11px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);text-align:left;padding:8px 10px;border-bottom:2px solid var(--line)}
   table.board th.num,table.board td.num{text-align:center;font-family:'Roboto Mono',monospace}
@@ -65,11 +54,9 @@
   .detail{font-size:12px;color:var(--muted);margin-top:2px}
   .empty{text-align:center;padding:40px 16px;color:var(--muted)}
   .empty i{font-style:normal;font-size:40px;display:block;margin-bottom:10px}
-
   label.fld{display:block;font-size:12.5px;font-weight:600;color:var(--navy);margin:0 0 6px}
   input[type=text],select{width:100%;font-family:inherit;font-size:15px;padding:11px 12px;border:1.5px solid var(--line);border-radius:var(--r-sm);background:var(--foam-2);color:var(--ink)}
   input[type=text]:focus,select:focus{outline:none;border-color:var(--aqua);background:#fff}
-
   .grp{border:1px solid var(--line);border-radius:var(--r-sm);margin-bottom:12px;overflow:hidden}
   .grp-h{background:var(--navy);color:#fff;font-family:'Anton',sans-serif;letter-spacing:.5px;text-transform:uppercase;font-size:14px;padding:9px 14px}
   .match{display:flex;align-items:center;gap:8px;padding:9px 12px;border-bottom:1px solid var(--foam)}
@@ -81,11 +68,9 @@
   .score-in:focus{outline:none;border-color:var(--aqua)}
   .vs{color:var(--muted);font-size:11px;font-weight:600}
   .mwhen{flex-basis:100%;font-size:10.5px;color:var(--muted);text-align:center;margin-bottom:-3px;order:-1;letter-spacing:.3px}
-
   .finals{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}
   .finals .full{grid-column:1/-1}
   @media(max-width:560px){.finals{grid-template-columns:1fr}}
-
   .btn{font-family:inherit;font-weight:600;font-size:15px;border:none;border-radius:var(--r-sm);padding:13px 22px;cursor:pointer;transition:.15s;display:inline-flex;align-items:center;gap:8px}
   .btn i{font-style:normal}
   .btn-go{background:var(--aqua);color:#fff;width:100%;justify-content:center;margin-top:18px;box-shadow:0 4px 14px rgba(21,182,194,.35)}
@@ -93,23 +78,24 @@
   .btn-go:disabled{opacity:.6;cursor:wait}
   .btn-ghost{background:var(--foam);color:var(--navy)}
   .btn-ghost:hover{background:#dcecee}
-
   .privacy{font-size:12px;color:var(--muted);background:var(--foam);border-radius:var(--r-sm);padding:10px 12px;margin:14px 0 4px;display:flex;gap:8px;align-items:flex-start}
   .privacy i{font-style:normal;color:var(--aqua-deep);flex-shrink:0}
   .err{font-size:13px;color:#9a2b2b;background:#FCEBEB;border:1px solid #f0caca;border-radius:var(--r-sm);padding:11px 13px;margin-top:12px;display:none}
   .err.on{display:block}
-
   .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--navy);color:#fff;padding:13px 22px;border-radius:30px;font-size:14px;font-weight:500;box-shadow:0 8px 24px rgba(0,0,0,.25);transition:.3s;z-index:50;display:flex;gap:8px;align-items:center}
   .toast.on{transform:translateX(-50%) translateY(0)}
   .toast i{font-style:normal;color:var(--aqua)}
-
   .lock{max-width:340px;margin:20px auto;text-align:center}
   .lock i{font-style:normal;font-size:36px;color:var(--aqua)}
   .share{background:var(--foam);border:1px dashed var(--aqua);border-radius:var(--r-sm);padding:14px;margin-top:14px}
   .share .lk{font-family:'Roboto Mono',monospace;font-size:12.5px;word-break:break-all;background:#fff;border:1px solid var(--line);border-radius:7px;padding:9px 11px;margin:8px 0;color:var(--navy)}
   .rules-pill{display:inline-block;background:var(--gold);color:#5a3d00;font-weight:600;font-size:12px;padding:4px 11px;border-radius:20px;margin-bottom:14px}
-  .note{font-size:12.5px;color:var(--muted);background:var(--foam);border-radius:var(--r-sm);padding:11px 13px;margin-top:14px;line-height:1.65}
+  .note{font-size:13px;color:var(--muted);background:var(--foam);border-radius:var(--r-sm);padding:13px 15px;margin-top:14px;line-height:1.7}
   .note b{color:var(--navy)}
+  .note ol{margin:8px 0 0 18px;padding:0}
+  .note li{margin-bottom:6px}
+  .note code{background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-family:'Roboto Mono',monospace;font-size:12px;color:var(--navy)}
+  .note a{color:var(--aqua-deep);font-weight:600}
 </style>
 </head>
 <body>
@@ -136,13 +122,31 @@
   <section class="view show" id="v-setup">
     <h2 class="h-sec"><i>🚀</i> Crea tu quiniela</h2>
     <p class="lead">Configúrala una sola vez. Obtendrás un enlace para compartir con todos los que quieras que participen.</p>
-    <label class="fld" for="setTitle">Nombre que aparecerá arriba (tu negocio o evento)</label>
+    <label class="fld" for="setTitle">Nombre que aparecerá arriba</label>
     <input type="text" id="setTitle" placeholder="Ej. ATTRAPI" autocomplete="off">
     <label class="fld" for="setCode" style="margin-top:14px">Tu código secreto (para capturar resultados)</label>
     <input type="text" id="setCode" placeholder="Ej. attrapi2026" autocomplete="off">
-    <div class="note"><b>Importante:</b> para que tus clientes puedan entrar, esta página debe estar publicada en internet (no abierta como archivo). Más abajo, en el chat, te explico cómo subirla gratis en 2 minutos.</div>
-    <button class="btn btn-go" id="createBtn"><i>✨</i> Crear quiniela y generar enlace</button>
+    <div class="note"><b>Nota:</b> para que otros entren, esta página debe estar publicada en internet (como ya la tienes en GitHub Pages). Ábrela desde su dirección web, no como archivo.</div>
+    <button class="btn btn-go" id="createBtn"><i>✨</i> Crear quiniela</button>
     <div class="err" id="setErr"></div>
+
+    <div id="manualBox" style="display:none">
+      <div class="note">
+        <b>Un paso rápido (solo tú, una vez · 1 minuto):</b> tu navegador bloqueó la creación automática, así que vamos a crear el espacio de guardado a mano:
+        <ol>
+          <li>Abre <a href="https://jsonblob.com" target="_blank" rel="noopener">jsonblob.com</a> en otra pestaña.</li>
+          <li>Verás un editor con un texto de ejemplo. Bórralo todo y escribe solo: <code>{}</code></li>
+          <li>Da clic en el ícono de guardar (el disquete, arriba a la izquierda).</li>
+          <li>La dirección de arriba cambiará a algo como <code>jsonblob.com/123456789</code>. Cópiala completa.</li>
+          <li>Regresa aquí y pégala abajo. 👇</li>
+        </ol>
+      </div>
+      <label class="fld" for="manualId">Pega aquí la dirección de jsonblob</label>
+      <input type="text" id="manualId" placeholder="https://jsonblob.com/..." autocomplete="off">
+      <button class="btn btn-go" id="manualBtn"><i>🔗</i> Conectar y crear quiniela</button>
+      <div class="err" id="manualErr"></div>
+    </div>
+
     <div class="share" id="shareBox" style="display:none">
       <b style="color:var(--navy)">¡Lista! Comparte este enlace 👇</b>
       <div class="lk" id="shareLink"></div>
@@ -241,7 +245,7 @@ const eq=(a,b)=>(a||'').trim().toLowerCase()===(b||'').trim().toLowerCase()&&(a|
 const esc=s=>(s+'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let _me='';
 let QID=(location.hash.match(/q=([A-Za-z0-9]+)/)||[])[1]||null;
-let DB=null;
+let DB=null, PEND=null;
 
 function toast(m){const t=$('#toast');$('#toast-msg').textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2600);}
 function showErr(id,msg){const e=$(id);e.textContent=msg;e.classList.add('on');}
@@ -252,7 +256,7 @@ async function blobCreate(data){
   if(!r.ok) throw new Error('HTTP '+r.status);
   let loc=r.headers.get('Location')||r.headers.get('X-Jsonblob')||'';
   let id=loc.split('/').pop();
-  if(!id) throw new Error('no se pudo leer el ID');
+  if(!id) throw new Error('header bloqueado');
   return id;
 }
 async function blobGet(id){
@@ -303,7 +307,6 @@ function score(p,R){
   if(eq(f.goleador,R.goleador))pts+=5;
   return{pts,exact,hit};
 }
-
 function renderBoard(){
   if(!DB)return;
   const R=DB.results, players=Object.values(DB.players||{});
@@ -322,7 +325,6 @@ function renderBoard(){
       `<td class="num">${r.exact}</td><td class="num pts">${r.pts}</td></tr>`;});
   $('#board-body').innerHTML=html+'</tbody></table>';
 }
-
 async function reload(){
   try{DB=await blobGet(QID);applyTitle();renderBoard();}
   catch(e){$('#board-body').innerHTML='<div class="empty"><i>⚠️</i>No se pudo cargar. Revisa tu conexión y toca "Actualizar".</div>';}
@@ -340,10 +342,9 @@ async function savePred(){
       finals:{campeon:$('#f-campeon').value.trim(),subcampeon:$('#f-subcampeon').value.trim(),goleador:$('#f-goleador').value.trim(),mexico:$('#f-mexico').value}};
     await blobPut(QID,fresh); DB=fresh; _me=name;
     toast('¡Quiniela guardada! 🎉'); switchTo('board');
-  }catch(e){showErr('#playErr','No se pudo guardar. Revisa tu internet y que la página esté publicada en un sitio web. Detalle: '+e.message);}
+  }catch(e){showErr('#playErr','No se pudo guardar. Revisa tu internet e intenta de nuevo. Detalle: '+e.message);}
   finally{btn.disabled=false;}
 }
-
 async function saveRes(){
   hideErr('#adminErr');
   const btn=$('#save-res');btn.disabled=true;
@@ -355,13 +356,11 @@ async function saveRes(){
   }catch(e){showErr('#adminErr','No se pudo guardar. Detalle: '+e.message);}
   finally{btn.disabled=false;}
 }
-
 function fillAdmin(){
   const R=DB.results||{matches:{}};
   for(const id in R.matches){const r=R.matches[id];if($(`#a-${id}-l`)){$(`#a-${id}-l`).value=r[0];$(`#a-${id}-v`).value=r[1];}}
   $('#r-campeon').value=R.campeon||'';$('#r-subcampeon').value=R.subcampeon||'';$('#r-goleador').value=R.goleador||'';
 }
-
 function switchTo(v){
   document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.v===v));
   ['board','play','admin'].forEach(x=>$('#v-'+x).classList.remove('show'));
@@ -382,23 +381,47 @@ async function copy(text){try{await navigator.clipboard.writeText(text);toast('E
 $('#shareTop').addEventListener('click',()=>copy(shareUrl()));
 $('#copyLink').addEventListener('click',()=>copy(shareUrl()));
 
+function finalize(id){
+  QID=id; location.hash='q='+id;
+  $('#shareLink').textContent=shareUrl();
+  $('#shareBox').style.display='block';
+  $('#createBtn').style.display='none';
+  $('#manualBox').style.display='none';
+  $('#shareBox').scrollIntoView({behavior:'smooth'});
+}
+
 $('#createBtn').addEventListener('click',async()=>{
   hideErr('#setErr');
   const title=$('#setTitle').value.trim()||'Quiniela';
   const code=$('#setCode').value.trim();
   if(code.length<3){showErr('#setErr','Pon un código secreto de al menos 3 caracteres.');return;}
+  PEND={title,code};
   const btn=$('#createBtn');btn.disabled=true;
   try{
     const id=await blobCreate(emptyDB(title,code));
-    QID=id; location.hash='q='+id; DB=emptyDB(title,code);
-    $('#shareLink').textContent=shareUrl();
-    $('#shareBox').style.display='block';
-    btn.style.display='none';
-  }catch(e){showErr('#setErr','No se pudo crear. Asegúrate de tener internet y de haber publicado esta página en un sitio web (no abrirla como archivo local). Detalle: '+e.message);}
+    DB=emptyDB(title,code); finalize(id);
+  }catch(e){
+    $('#manualBox').style.display='block';
+    $('#manualBox').scrollIntoView({behavior:'smooth'});
+  }finally{btn.disabled=false;}
+});
+
+$('#manualBtn').addEventListener('click',async()=>{
+  hideErr('#manualErr');
+  const raw=$('#manualId').value.trim();
+  const id=raw.split(/[#?]/)[0].split('/').filter(Boolean).pop();
+  if(!id){showErr('#manualErr','Pega la dirección de jsonblob que copiaste.');return;}
+  const p=PEND||{title:$('#setTitle').value.trim()||'Quiniela',code:$('#setCode').value.trim()};
+  const btn=$('#manualBtn');btn.disabled=true;
+  try{
+    DB=emptyDB(p.title,p.code);
+    await blobPut(id,DB);
+    finalize(id);
+  }catch(e){showErr('#manualErr','No se pudo conectar con esa dirección. Revisa que la copiaste completa y que guardaste el {} en jsonblob. Detalle: '+e.message);}
   finally{btn.disabled=false;}
 });
-$('#enterBtn').addEventListener('click',()=>startApp());
 
+$('#enterBtn').addEventListener('click',()=>startApp());
 function startApp(){
   $('#v-setup').classList.remove('show');
   $('#tabs').classList.remove('hidden');
