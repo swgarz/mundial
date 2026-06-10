@@ -93,9 +93,11 @@
   .note{font-size:13px;color:var(--muted);background:var(--foam);border-radius:var(--r-sm);padding:13px 15px;margin-top:14px;line-height:1.7}
   .note b{color:var(--navy)}
   .note ol{margin:8px 0 0 18px;padding:0}
-  .note li{margin-bottom:6px}
-  .note code{background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-family:'Roboto Mono',monospace;font-size:12px;color:var(--navy)}
+  .note li{margin-bottom:7px}
+  .note code{background:#fff;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-family:'Roboto Mono',monospace;font-size:12px;color:var(--navy);word-break:break-all}
   .note a{color:var(--aqua-deep);font-weight:600}
+  details.help{margin-top:12px}
+  details.help summary{cursor:pointer;font-size:13px;font-weight:600;color:var(--aqua-deep);padding:6px 0}
 </style>
 </head>
 <body>
@@ -121,31 +123,29 @@
 
   <section class="view show" id="v-setup">
     <h2 class="h-sec"><i>🚀</i> Crea tu quiniela</h2>
-    <p class="lead">Configúrala una sola vez. Obtendrás un enlace para compartir con todos los que quieras que participen.</p>
+    <p class="lead">Configúrala una sola vez. Obtendrás un enlace para compartir con quien quieras que participe.</p>
     <label class="fld" for="setTitle">Nombre que aparecerá arriba</label>
     <input type="text" id="setTitle" placeholder="Ej. ATTRAPI" autocomplete="off">
     <label class="fld" for="setCode" style="margin-top:14px">Tu código secreto (para capturar resultados)</label>
     <input type="text" id="setCode" placeholder="Ej. attrapi2026" autocomplete="off">
-    <div class="note"><b>Nota:</b> para que otros entren, esta página debe estar publicada en internet (como ya la tienes en GitHub Pages). Ábrela desde su dirección web, no como archivo.</div>
-    <button class="btn btn-go" id="createBtn"><i>✨</i> Crear quiniela</button>
-    <div class="err" id="setErr"></div>
+    <label class="fld" for="setDb" style="margin-top:14px">URL de tu base de datos (Firebase)</label>
+    <input type="text" id="setDb" placeholder="https://...firebasedatabase.app" autocomplete="off">
 
-    <div id="manualBox" style="display:none">
+    <details class="help">
+      <summary>¿No tienes la URL? Mira cómo crearla gratis (3 min, una sola vez)</summary>
       <div class="note">
-        <b>Un paso rápido (solo tú, una vez · 1 minuto):</b> tu navegador bloqueó la creación automática, así que vamos a crear el espacio de guardado a mano:
         <ol>
-          <li>Abre <a href="https://jsonblob.com" target="_blank" rel="noopener">jsonblob.com</a> en otra pestaña.</li>
-          <li>Verás un editor con un texto de ejemplo. Bórralo todo y escribe solo: <code>{}</code></li>
-          <li>Da clic en el ícono de guardar (el disquete, arriba a la izquierda).</li>
-          <li>La dirección de arriba cambiará a algo como <code>jsonblob.com/123456789</code>. Cópiala completa.</li>
-          <li>Regresa aquí y pégala abajo. 👇</li>
+          <li>Entra a <a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> con tu cuenta de Google.</li>
+          <li>Clic en <b>"Agregar proyecto"</b>. Ponle un nombre (ej. <code>quiniela-attrapi</code>), puedes saltar Google Analytics, y <b>Crear proyecto</b>.</li>
+          <li>En el menú izquierdo: <b>Compilación → Realtime Database → Crear base de datos</b>. Elige la ubicación y selecciona <b>"Iniciar en modo de prueba"</b> → Habilitar.</li>
+          <li>Entra a la pestaña <b>"Reglas"</b>, borra lo que haya y pega esto, luego <b>Publicar</b>:<br><code>{ "rules": { ".read": true, ".write": true } }</code></li>
+          <li>Arriba verás la dirección de tu base (algo como <code>https://quiniela-attrapi-default-rtdb.firebasedatabase.app</code>). <b>Cópiala y pégala</b> en el campo de arriba. ¡Listo!</li>
         </ol>
       </div>
-      <label class="fld" for="manualId">Pega aquí la dirección de jsonblob</label>
-      <input type="text" id="manualId" placeholder="https://jsonblob.com/..." autocomplete="off">
-      <button class="btn btn-go" id="manualBtn"><i>🔗</i> Conectar y crear quiniela</button>
-      <div class="err" id="manualErr"></div>
-    </div>
+    </details>
+
+    <button class="btn btn-go" id="createBtn"><i>✨</i> Crear quiniela y generar enlace</button>
+    <div class="err" id="setErr"></div>
 
     <div class="share" id="shareBox" style="display:none">
       <b style="color:var(--navy)">¡Lista! Comparte este enlace 👇</b>
@@ -218,8 +218,6 @@
 <div class="toast" id="toast"><i>✓</i><span id="toast-msg"></span></div>
 
 <script>
-const API='https://jsonblob.com/api/jsonBlob';
-
 const GROUPS = {
   A:[["México","Sudáfrica","11 jun","13:00"],["Corea del Sur","Chequia","11 jun","20:00"],["Chequia","Sudáfrica","18 jun","10:00"],["México","Corea del Sur","18 jun","19:00"],["Chequia","México","24 jun","19:00"],["Sudáfrica","Corea del Sur","24 jun","19:00"]],
   B:[["Canadá","Bosnia y Herz.","12 jun","13:00"],["Qatar","Suiza","13 jun","13:00"],["Suiza","Bosnia y Herz.","18 jun","13:00"],["Canadá","Qatar","18 jun","16:00"],["Suiza","Canadá","24 jun","13:00"],["Bosnia y Herz.","Qatar","24 jun","13:00"]],
@@ -244,32 +242,33 @@ const sign=x=>x>0?1:x<0?-1:0;
 const eq=(a,b)=>(a||'').trim().toLowerCase()===(b||'').trim().toLowerCase()&&(a||'').trim()!=='';
 const esc=s=>(s+'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 let _me='';
-let QID=(location.hash.match(/q=([A-Za-z0-9]+)/)||[])[1]||null;
-let DB=null, PEND=null;
+let DBBASE=null, QID=null, DB=null;
 
-function toast(m){const t=$('#toast');$('#toast-msg').textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2600);}
-function showErr(id,msg){const e=$(id);e.textContent=msg;e.classList.add('on');}
-function hideErr(id){$(id).classList.remove('on');}
-
-async function blobCreate(data){
-  const r=await fetch(API,{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
-  if(!r.ok) throw new Error('HTTP '+r.status);
-  let loc=r.headers.get('Location')||r.headers.get('X-Jsonblob')||'';
-  let id=loc.split('/').pop();
-  if(!id) throw new Error('header bloqueado');
-  return id;
+function parseHash(){
+  const h=location.hash||'';
+  const d=(h.match(/d=([^&]+)/)||[])[1];
+  const q=(h.match(/q=([A-Za-z0-9]+)/)||[])[1];
+  DBBASE=d?decodeURIComponent(d).replace(/\/+$/,''):null;
+  QID=q||null;
 }
-async function blobGet(id){
-  const r=await fetch(API+'/'+id,{headers:{'Accept':'application/json'},cache:'no-store'});
+parseHash();
+
+function dataUrl(){return DBBASE+'/q/'+QID+'.json';}
+async function fbGet(){
+  const r=await fetch(dataUrl(),{cache:'no-store'});
   if(!r.ok) throw new Error('HTTP '+r.status);
   return await r.json();
 }
-async function blobPut(id,data){
-  const r=await fetch(API+'/'+id,{method:'PUT',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify(data)});
+async function fbPut(data){
+  const r=await fetch(dataUrl(),{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
   if(!r.ok) throw new Error('HTTP '+r.status);
   return data;
 }
 function emptyDB(title,code){return{title:title||'Quiniela',adminCode:code||'',results:{matches:{},campeon:'',subcampeon:'',goleador:''},players:{}};}
+
+function toast(m){const t=$('#toast');$('#toast-msg').textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2600);}
+function showErr(id,msg){const e=$(id);e.textContent=msg;e.classList.add('on');}
+function hideErr(id){$(id).classList.remove('on');}
 
 function groupHTML(prefix){
   let h='';
@@ -297,7 +296,7 @@ function readScores(prefix){
 }
 function score(p,R){
   let pts=0,exact=0,hit=0;
-  for(const m of MATCHES){const r=R.matches[m.id],pr=p.preds?p.preds[m.id]:null;
+  for(const m of MATCHES){const r=R.matches?R.matches[m.id]:null,pr=p.preds?p.preds[m.id]:null;
     if(!r||!pr)continue;
     if(r[0]===pr[0]&&r[1]===pr[1]){pts+=3;exact++;}
     else if(sign(pr[0]-pr[1])===sign(r[0]-r[1])){pts+=1;hit++;}}
@@ -308,9 +307,9 @@ function score(p,R){
   return{pts,exact,hit};
 }
 function renderBoard(){
-  if(!DB)return;
-  const R=DB.results, players=Object.values(DB.players||{});
-  const played=Object.values(R.matches).filter(r=>r&&r[0]!=null).length;
+  const R=(DB&&DB.results)||{matches:{}};
+  const players=Object.values((DB&&DB.players)||{});
+  const played=Object.values(R.matches||{}).filter(r=>r&&r[0]!=null).length;
   $('#s-players').textContent=players.length;
   $('#s-played').textContent=played;
   if(!players.length){$('#s-leader').textContent='—';
@@ -326,7 +325,7 @@ function renderBoard(){
   $('#board-body').innerHTML=html+'</tbody></table>';
 }
 async function reload(){
-  try{DB=await blobGet(QID);applyTitle();renderBoard();}
+  try{DB=(await fbGet())||emptyDB();applyTitle();renderBoard();}
   catch(e){$('#board-body').innerHTML='<div class="empty"><i>⚠️</i>No se pudo cargar. Revisa tu conexión y toca "Actualizar".</div>';}
 }
 function applyTitle(){if(DB&&DB.title){$('#brandName').textContent=DB.title;document.title='Quiniela · '+DB.title;}}
@@ -337,10 +336,10 @@ async function savePred(){
   if(name.length<2){showErr('#playErr','Escribe tu nombre primero.');return;}
   const btn=$('#save-pred');btn.disabled=true;
   try{
-    const fresh=await blobGet(QID); fresh.players=fresh.players||{};
+    const fresh=(await fbGet())||emptyDB(); fresh.players=fresh.players||{};
     fresh.players[slug(name)]={name,ts:Date.now(),preds:readScores('p'),
       finals:{campeon:$('#f-campeon').value.trim(),subcampeon:$('#f-subcampeon').value.trim(),goleador:$('#f-goleador').value.trim(),mexico:$('#f-mexico').value}};
-    await blobPut(QID,fresh); DB=fresh; _me=name;
+    await fbPut(fresh); DB=fresh; _me=name;
     toast('¡Quiniela guardada! 🎉'); switchTo('board');
   }catch(e){showErr('#playErr','No se pudo guardar. Revisa tu internet e intenta de nuevo. Detalle: '+e.message);}
   finally{btn.disabled=false;}
@@ -349,16 +348,16 @@ async function saveRes(){
   hideErr('#adminErr');
   const btn=$('#save-res');btn.disabled=true;
   try{
-    const fresh=await blobGet(QID);
+    const fresh=(await fbGet())||emptyDB();
     fresh.results={matches:readScores('a'),campeon:$('#r-campeon').value.trim(),subcampeon:$('#r-subcampeon').value.trim(),goleador:$('#r-goleador').value.trim()};
-    await blobPut(QID,fresh); DB=fresh;
+    await fbPut(fresh); DB=fresh;
     toast('Resultados guardados ✓'); switchTo('board');
   }catch(e){showErr('#adminErr','No se pudo guardar. Detalle: '+e.message);}
   finally{btn.disabled=false;}
 }
 function fillAdmin(){
-  const R=DB.results||{matches:{}};
-  for(const id in R.matches){const r=R.matches[id];if($(`#a-${id}-l`)){$(`#a-${id}-l`).value=r[0];$(`#a-${id}-v`).value=r[1];}}
+  const R=(DB&&DB.results)||{matches:{}};
+  for(const id in (R.matches||{})){const r=R.matches[id];if($(`#a-${id}-l`)){$(`#a-${id}-l`).value=r[0];$(`#a-${id}-v`).value=r[1];}}
   $('#r-campeon').value=R.campeon||'';$('#r-subcampeon').value=R.subcampeon||'';$('#r-goleador').value=R.goleador||'';
 }
 function switchTo(v){
@@ -376,51 +375,31 @@ $('#unlock').addEventListener('click',()=>{
   else toast('Código incorrecto');
 });
 
-function shareUrl(){return location.origin+location.pathname+'#q='+QID;}
+function shareUrl(){return location.origin+location.pathname+'#d='+encodeURIComponent(DBBASE)+'&q='+QID;}
 async function copy(text){try{await navigator.clipboard.writeText(text);toast('Enlace copiado 📋');}catch(e){toast('Copia el enlace manualmente');}}
 $('#shareTop').addEventListener('click',()=>copy(shareUrl()));
 $('#copyLink').addEventListener('click',()=>copy(shareUrl()));
-
-function finalize(id){
-  QID=id; location.hash='q='+id;
-  $('#shareLink').textContent=shareUrl();
-  $('#shareBox').style.display='block';
-  $('#createBtn').style.display='none';
-  $('#manualBox').style.display='none';
-  $('#shareBox').scrollIntoView({behavior:'smooth'});
-}
 
 $('#createBtn').addEventListener('click',async()=>{
   hideErr('#setErr');
   const title=$('#setTitle').value.trim()||'Quiniela';
   const code=$('#setCode').value.trim();
+  let db=$('#setDb').value.trim().replace(/\/+$/,'');
   if(code.length<3){showErr('#setErr','Pon un código secreto de al menos 3 caracteres.');return;}
-  PEND={title,code};
+  if(!/^https:\/\/.+/.test(db)){showErr('#setErr','Pega la URL de tu base de datos de Firebase (empieza con https://).');return;}
+  DBBASE=db; QID=Math.random().toString(36).slice(2,8);
   const btn=$('#createBtn');btn.disabled=true;
   try{
-    const id=await blobCreate(emptyDB(title,code));
-    DB=emptyDB(title,code); finalize(id);
-  }catch(e){
-    $('#manualBox').style.display='block';
-    $('#manualBox').scrollIntoView({behavior:'smooth'});
-  }finally{btn.disabled=false;}
-});
-
-$('#manualBtn').addEventListener('click',async()=>{
-  hideErr('#manualErr');
-  const raw=$('#manualId').value.trim();
-  const id=raw.split(/[#?]/)[0].split('/').filter(Boolean).pop();
-  if(!id){showErr('#manualErr','Pega la dirección de jsonblob que copiaste.');return;}
-  const p=PEND||{title:$('#setTitle').value.trim()||'Quiniela',code:$('#setCode').value.trim()};
-  const btn=$('#manualBtn');btn.disabled=true;
-  try{
-    DB=emptyDB(p.title,p.code);
-    await blobPut(id,DB);
-    finalize(id);
-  }catch(e){showErr('#manualErr','No se pudo conectar con esa dirección. Revisa que la copiaste completa y que guardaste el {} en jsonblob. Detalle: '+e.message);}
+    DB=emptyDB(title,code);
+    await fbPut(DB);
+    location.hash='d='+encodeURIComponent(DBBASE)+'&q='+QID;
+    $('#shareLink').textContent=shareUrl();
+    $('#shareBox').style.display='block';
+    btn.style.display='none';
+    $('#shareBox').scrollIntoView({behavior:'smooth'});
+  }catch(e){showErr('#setErr','No se pudo crear. Revisa que la URL de Firebase sea correcta y que pusiste las reglas en modo público. Detalle: '+e.message);}
   finally{btn.disabled=false;}
 });
-
 $('#enterBtn').addEventListener('click',()=>startApp());
 function startApp(){
   $('#v-setup').classList.remove('show');
@@ -431,7 +410,7 @@ function startApp(){
 document.addEventListener('input',e=>{if(e.target.classList.contains('score-in'))e.target.value=e.target.value.replace(/\D/g,'');});
 
 (async function(){
-  if(QID){
+  if(DBBASE&&QID){
     $('#v-setup').classList.remove('show');
     $('#tabs').classList.remove('hidden');
     $('#v-board').classList.add('show');
